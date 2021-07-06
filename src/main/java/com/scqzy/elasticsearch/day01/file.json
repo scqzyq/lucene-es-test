@@ -1,0 +1,52 @@
+127.0.0.1:9200/blog
+{
+  "mappings": {
+    "properties": {
+      "id": {
+        "type": "long",
+        "store": true
+      },
+      "title": {
+        "type": "text",
+        "store": true,
+        "analyzer": "ik_smart"
+      },
+      "content": {
+        "type": "text",
+        "store": true,
+        "analyzer": "ik_smart"
+      }
+    }
+  }
+}
+
+127.0.0.1:9200/blog/_doc/3
+{
+  "id":3,
+  "title":"《设计模式系列》 - 代理模式",
+  "content":"远程代理：就是将工作委托给远程对象（不同的服务器，或者不同的进程）来完成。常见的是用在web Service中。还有就是我们的RPC调用也可以理解为一种远程代理。保护代理：该模式主要进行安全/权限检查。（接触很少）缓存代理：这个很好理解，就是通过存储来加速调用，比如Sping中的@Cacheable方法，缓存特定的参数获取到的结果，当下次相同参数调用该方法，直接从缓存中返回数据。虚拟代理：这种代理主要是为方法增加功能，比如记录一些性能指标等，或进行延迟初始化"
+}
+
+127.0.0.1:9200/_analyze?pretty=true
+{
+"analyzer":"ik_smart",
+"text": "咱们工人有力量"
+}
+
+127.0.0.1:9200/blog/_doc/_search
+// {
+//     "query":{
+//         "term":{
+//             "title":"模式"
+//         }
+//     }
+// }
+
+{
+"query":{
+"query_string":{
+"default_field":"content",
+"query":"模式"
+}
+}
+}
